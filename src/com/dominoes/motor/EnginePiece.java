@@ -30,9 +30,13 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 	public void paintComponent (Graphics g){
 		super.paintComponent(g);
 		this.setBackground(new Color(0,100,0));
+		
 		Piece piece = new Piece();
+		
 		piece.setBasePiece(pieceUtil.getBasePiece());
-		piece.setImagesPoint(pieceUtil.getPointThreeTop());
+		
+		piece.setImagesPointTop(pieceUtil.getPointSix());
+		piece.setImagesPointBotton(pieceUtil.setPointBottom(pieceUtil.getPointSix()));
 		
 		g.drawImage(piece.getBasePiece().getImage(), 
 					0, 
@@ -40,7 +44,7 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 					piece.getBasePiece().getWidth(), 
 					piece.getBasePiece().getHeight(), 
 					null);
-		for(ImagePiece point : piece.getImagesPoint()) {
+		for(ImagePiece point : piece.getImagesPointTop()) {
 			g.drawImage(point.getImage(), 
 					point.getX(), 
 					point.getY(), 
@@ -48,78 +52,14 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 					point.getHeight(), 
 					null);
 		}
-		
-		// ImageIcon imagenFicha = new ImageIcon("image/ficha.png");
-		//
-		// text.setText(""+imagenFicha.getIconHeight());
-		//
-		// g.drawImage(imagenFicha.getImage(),0,0,imagenFicha.getIconWidth(),imagenFicha.getIconHeight(),
-		// null);
-		//
-		// g.drawImage(imagenFicha.getImage(),400,40,imagenFicha.getIconWidth()/2,imagenFicha.getIconHeight()/2,
-		// null);
-		//
-		// ImageIcon imagenBase = new ImageIcon("image/base.png");
-		// g.drawImage(imagenBase.getImage(),200,0,imagenBase.getIconWidth(),imagenBase.getIconHeight(),
-		// null);
-		//
-		//
-		//
-		// ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		//
-		// // Primer valor
-		// g.drawImage(imagenPoint.getImage(),imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		// // segundo valor
-		// g.drawImage(imagenPoint.getImage(),imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,2*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+4,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		// // tercer valor
-		// g.drawImage(imagenPoint.getImage(),imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,3*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+6,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// g.drawImage(imagenPoint.getImage(),imagenBase.getIconWidth()/2-imagenPoint.getIconWidth()/2-6,imagenBase.getIconHeight()/4-10,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // Cuarto valor
-		// g.drawImage(imagenPoint.getImage(),3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		// // quinto valor
-		// g.drawImage(imagenPoint.getImage(),3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,2*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+4,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		// // sexto valor
-		// g.drawImage(imagenPoint.getImage(),3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,3*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+6,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 4 -5 -6
-		// g.drawImage(imagenPoint.getImage(),200+imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 6
-		// g.drawImage(imagenPoint.getImage(),200+imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,2*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+4,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 6 - 5- 4- 3 - 2
-		// g.drawImage(imagenPoint.getImage(),200+imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,3*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+6,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 1 - 3
-		// g.drawImage(imagenPoint.getImage(),200+imagenBase.getIconWidth()/2-imagenPoint.getIconWidth()/2-6,imagenBase.getIconHeight()/4-10,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 6 - 5- 4- 3 - 2
-		// g.drawImage(imagenPoint.getImage(),200+3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 6
-		// g.drawImage(imagenPoint.getImage(),200+3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,2*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+4,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		// // 4 -5 -6
-		// g.drawImage(imagenPoint.getImage(),200+3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,3*imagenBase.getIconHeight()/8-imagenPoint.getIconHeight()/2+6,imagenPoint.getIconWidth(),imagenPoint.getIconHeight(),
-		// null);
-		//
-		//
-		// //setOpaque(false);
+		for(ImagePiece point : piece.getImagesPointBotton()) {
+			g.drawImage(point.getImage(), 
+					point.getX(), 
+					point.getY(), 
+					point.getWidth(), 
+					point.getHeight(), 
+					null);
+		}
 	}
 	
 	/******************************************************************************/

@@ -14,30 +14,16 @@ public class Piece implements Serializable{
 	
 	private static final long serialVersionUID = -5473767365827837015L;
 	
-	private ImagePiece basePiece;			// Imagen base de la ficha de domino
-	private List<ImagePiece> ImagesPoint;	// Imagenes puntos sobre la ficha de domino
-	private Point startPoint;				// Posicion inicial de la ficha sobre la mesa - ficha del jugador
-	private Point endPoint;					// POsicion final de la ficha sobre la mesa - ficha jugada
-	private Boolean vertical;				// Posicion vertical/horizontal sobre la mesa
-	private String valueXY;					// Valor de la ficha (ej: 66:doble seis)
-	private int valueX;						// Valor de un lado de la ficha (ej: 6)
-	private int valueY;						// Valor del otro lado de la ficha (ej: 6)
+	private ImagePiece basePiece;				// Imagen base de la ficha de domino
+	private List<ImagePiece> imagesPointTop;	// Imagenes puntos parte arriba de la ficha de domino 
+	private List<ImagePiece> imagesPointBotton;	// Imagenes puntos parte abajo de la ficha de domino
+	private Point startPoint;					// Posicion inicial de la ficha sobre la mesa - ficha del jugador
+	private Point endPoint;						// POsicion final de la ficha sobre la mesa - ficha jugada
+	private Boolean vertical;					// Posicion vertical/horizontal sobre la mesa
+	private String valueXY;						// Valor de la ficha (ej: 66:doble seis)
+	private int valueX;							// Valor de un lado de la ficha (ej: 6)
+	private int valueY;							// Valor del otro lado de la ficha (ej: 6)
 	
-	public Piece() {}
-	
-	public Piece(ImagePiece basePiece, List<ImagePiece> imagesPoint, Point startPoint, Point endPoint,
-			Boolean vertical, String valueXY, int valueX, int valueY) {
-		
-		this.basePiece = basePiece;
-		ImagesPoint = imagesPoint;
-		this.startPoint = startPoint;
-		this.endPoint = endPoint;
-		this.vertical = vertical;
-		this.valueXY = valueXY;
-		this.valueX = valueX;
-		this.valueY = valueY;
-	}
-
 	public ImagePiece getBasePiece() {
 		return basePiece;
 	}
@@ -46,12 +32,20 @@ public class Piece implements Serializable{
 		this.basePiece = basePiece;
 	}
 
-	public List<ImagePiece> getImagesPoint() {
-		return ImagesPoint;
+	public List<ImagePiece> getImagesPointTop() {
+		return imagesPointTop;
 	}
 
-	public void setImagesPoint(List<ImagePiece> imagesPoint) {
-		ImagesPoint = imagesPoint;
+	public void setImagesPointTop(List<ImagePiece> imagesPointTop) {
+		this.imagesPointTop = imagesPointTop;
+	}
+
+	public List<ImagePiece> getImagesPointBotton() {
+		return imagesPointBotton;
+	}
+
+	public void setImagesPointBotton(List<ImagePiece> imagesPointBotton) {
+		this.imagesPointBotton = imagesPointBotton;
 	}
 
 	public Point getStartPoint() {
@@ -104,8 +98,9 @@ public class Piece implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Piece [basePiece=" + basePiece + ", ImagesPoint=" + ImagesPoint + ", startPoint=" + startPoint
-				+ ", endPoint=" + endPoint + ", vertical=" + vertical + ", valueXY=" + valueXY + ", valueX=" + valueX
-				+ ", valueY=" + valueY + "]";
+		return "Piece [basePiece=" + basePiece + ", imagesPointTop=" + imagesPointTop + ", imagesPointBotton="
+				+ imagesPointBotton + ", startPoint=" + startPoint + ", endPoint=" + endPoint + ", vertical=" + vertical
+				+ ", valueXY=" + valueXY + ", valueX=" + valueX + ", valueY=" + valueY + "]";
 	}
+
 }
