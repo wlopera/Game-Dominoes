@@ -1,27 +1,21 @@
 package com.dominoes.view;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.dominoes.element.Circle;
 import com.dominoes.element.ComplexElement;
-import com.dominoes.element.Line;
-import com.dominoes.element.Rectangle;
+import com.dominoes.motor.EnginePiece;
 
 @SuppressWarnings("serial")
-public class DominoesTiles extends JPanel {
+public class Tablet extends JPanel {
 	private JPanel northPanel;
 	private JPanel westPanel;
 	private JPanel centerPanel;
@@ -43,7 +37,6 @@ public class DominoesTiles extends JPanel {
 		// Crear Paneles
 		northPanel = new JPanel();
 		westPanel = new JPanel();
-		getCenterPanel();
 		eastPanel = new JPanel();
 		southPanel = new JPanel();
 
@@ -54,6 +47,9 @@ public class DominoesTiles extends JPanel {
 		JScrollPane scroll = new JScrollPane(text);
 		southPanel.add(scroll);
 		
+		// Agregar panel de la mesa
+		getCenterPanel();
+
 		add(northPanel, BorderLayout.NORTH);
 		add(westPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
@@ -74,25 +70,7 @@ public class DominoesTiles extends JPanel {
 	}
 	
 	public void getCenterPanel() {
-		centerPanel = new Component();
-		centerPanel.setBorder(BorderFactory.createLoweredBevelBorder());
-		
-		Rectangle rectangle = new Rectangle(100.0,100.0, 250.0,250.0);
-		List<Circle> circles = new ArrayList<Circle>();
-		
-		circles.add(new Circle(new Point(180, 180), 10.0));
-		circles.add(new Circle(new Point(280, 180), 10.0));
-		circles.add(new Circle(new Point(180, 280), 10.0));
-		circles.add(new Circle(new Point(280, 280), 10.0));
-		
-		Line line = new Line(new Point(100, 100), new Point(350, 350));
-		
-		complexElement = new ComplexElement(rectangle, line, circles, Color.red, Color.gray, new BasicStroke(1f));
-		
-		complexElement.draw((Graphics2D)centerPanel.getGraphics());
-
-		repaint();
-				
+		centerPanel = new EnginePiece(getSize(), text);
 	}
 	
 	/******************************************************************************/

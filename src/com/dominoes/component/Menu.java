@@ -4,7 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.dominoes.action.DominoesTilesAction;
+import com.dominoes.action.TabletAction;
 import com.dominoes.action.SalirAction;
 import com.dominoes.view.MainFrame;
 
@@ -15,15 +15,15 @@ public class Menu extends JMenuBar {
 	// Constructor
 	public Menu(String titulo, MainFrame marcoPrincipal){
 		menu = new JMenu(titulo);
-		dominoesTilesAction(marcoPrincipal);
+		tabletAction(marcoPrincipal);
 		salirAction(marcoPrincipal);
 	}
 	
 	/**
-	 * xmltoExcelAction: Agregar la opcion Abrir XML
+	 * tabletAction: Tablero de domino (mesa)
 	 */
-	private void dominoesTilesAction(MainFrame marcoPrincipal){
-		menu.add(new JMenuItem(new DominoesTilesAction(marcoPrincipal)));
+	private void tabletAction(MainFrame mainFrame){
+		menu.add(new JMenuItem(new TabletAction(mainFrame)));
 		menu.setMnemonic('D'); // Create shortcut
 		add(menu); // Add the file menu				
 	}
@@ -31,8 +31,8 @@ public class Menu extends JMenuBar {
 	/**
 	 * agregarAbrirAction: Agregar la opcion Salir del Programa Principal
 	 */
-	private void salirAction(MainFrame marcoPrincipal){
-		menu.add(new JMenuItem(new SalirAction(marcoPrincipal)));
+	private void salirAction(MainFrame mainFrame){
+		menu.add(new JMenuItem(new SalirAction(mainFrame)));
 		menu.setMnemonic('S'); // Create shortcut
 		add(menu); // Add the file menu				
 	}

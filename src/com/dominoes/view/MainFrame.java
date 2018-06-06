@@ -20,20 +20,20 @@ public class MainFrame extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MainFrame marcoPrincipal = new MainFrame();
-		marcoPrincipal.subirInterfax();
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.openInterfax();
 	}
 
 	/**
      * subirInterfax: Metodo que permite subir la ventana del sistema
      */
-	public void subirInterfax(){
+	public void openInterfax(){
 		setTitle("DOMINO - WLOPERA");
 		
 		// Agregar paneles al frame
 		setPreferredSize(new Dimension(1200,600));		
 		
-		PanelImagen p = new PanelImagen(getSize());
+		PanelImagen p = new PanelImagen(getSize());		
 		setContentPane(p);
 		
 		setLayout(new BorderLayout());
@@ -67,11 +67,13 @@ public class MainFrame extends JFrame {
             	bajarInterfaz();
             }        	
         });
+        
+        tablet();
 	}
 	
-	public void dominoesTiles(){
+	public void tablet(){
 		// Instanciar el objeto MlToExcel
-		DominoesTiles dominoesTiles = new DominoesTiles();
+		Tablet dominoesTiles = new Tablet();
 				
 		dominoesTiles.init();
 		// getContentPane().removeAll();
