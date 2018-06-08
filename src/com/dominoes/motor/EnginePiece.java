@@ -3,37 +3,45 @@ package com.dominoes.motor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 
 import com.dominoes.component.MouseControl;
 import com.dominoes.domain.ImagePiece;
 import com.dominoes.domain.Piece;
 import com.dominoes.util.Constantes;
 import com.dominoes.util.EnginePieceUtil;
+import com.dominoes.view.Tablet;
 
 @SuppressWarnings("serial")
 public class EnginePiece extends javax.swing.JPanel implements Constantes {
 
-	private JTextArea text;
-	private EnginePieceUtil pieceUtil;
+	private Tablet tablet;
 	private JDialog modalPanel;
 	private Piece piece;
+	private double scale;
 
-	public EnginePiece(Dimension dimension, JTextArea text) {
+	private EnginePieceUtil pieceUtil;
+	
+	
+	public EnginePiece(Dimension dimension, Tablet tablet, String imagePointName, double scale) {
 		this.setSize(dimension);
-		this.text = text;
+		this.tablet = tablet;
+		this.scale = scale;
+		
 		getMouseController();
-		pieceUtil = new EnginePieceUtil();
+		pieceUtil = new EnginePieceUtil(imageBaseName, imagePointName);
+		
 		modalPanel = getModalPanel();
 		modalPanel.setVisible(true);
 		modalPanel.setLocationRelativeTo(null);
@@ -44,7 +52,10 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		piece = new Piece();
 
 		piece.setBasePiece(pieceUtil.getBasePiece());
-
+		
+		piece.setStartPoint(new Point((int)(piece.getBasePiece().getWidth()*(scale/2)),(int)(piece.getBasePiece().getHeight()*(scale/2))));
+		
+		
 		switch (top) {
 		case 1:
 			piece.setImagesPointTop(pieceUtil.getPointOne());
@@ -99,24 +110,34 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
 		this.setBackground(new Color(0, 100, 0));
 		
 		if (null != piece) {
+			
+			Graphics2D g2D = (Graphics2D)g;			
+			AffineTransform old = g2D.getTransform(); // Save the current transform
+			
+			AffineTransform at = new AffineTransform();
+			at.translate(piece.getStartPoint().x - piece.getBasePiece().getWidth()*(scale/2), piece.getStartPoint().y -piece.getBasePiece().getHeight()*(scale/2));
+			at.scale(scale, scale);
+			g2D.setTransform(at);
+			
+			tablet.setText("Pto start: " + piece.getStartPoint().toString(), false);
 
-			g.drawImage(piece.getBasePiece().getImage(), 0, 0, piece.getBasePiece().getWidth(),
+			g2D.drawImage(piece.getBasePiece().getImage(), 0,0, piece.getBasePiece().getWidth(),
 					piece.getBasePiece().getHeight(), null);
 
 			if (null != piece.getImagesPointTop()) {
 				for (ImagePiece point : piece.getImagesPointTop()) {
-					g.drawImage(point.getImage(), point.getX(), point.getY(), point.getWidth(), point.getHeight(), null);
+					g2D.drawImage(point.getImage(), point.getX(), point.getY(), point.getWidth(), point.getHeight(), null);
 				}
 			}
 			if (null != piece.getImagesPointBotton()) {
 				for (ImagePiece point : piece.getImagesPointBotton()) {
-					g.drawImage(point.getImage(), point.getX(), point.getY(), point.getWidth(), point.getHeight(), null);
+					g2D.drawImage(point.getImage(), point.getX(), point.getY(), point.getWidth(), point.getHeight(), null);
 				}
 			}
+			g2D.setTransform(old);
 		}
 	}
 
@@ -144,7 +165,10 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		Point pto = e.getPoint();
 		switch (tipoEvento) {
 		case MOUSE_CLICK:
-			text.setText(pto.toString());
+			tablet.setText("Click: " + pto.toString(), false);
+			//piece.setStartPoint(new Point(pto.x - piece.getBasePiece().getWidth()/2, pto.y -piece.getBasePiece().getHeight()/2));
+			 piece.setStartPoint(pto);
+			repaint();
 			break;
 		case MOUSE_MOVED:
 			// System.out.println(pto);

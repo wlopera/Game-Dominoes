@@ -13,9 +13,10 @@ import javax.swing.JTextArea;
 
 import com.dominoes.element.ComplexElement;
 import com.dominoes.motor.EnginePiece;
+import com.dominoes.util.Constantes;
 
 @SuppressWarnings("serial")
-public class Tablet extends JPanel {
+public class Tablet extends JPanel implements Constantes {
 	private JPanel northPanel;
 	private JPanel westPanel;
 	private JPanel centerPanel;
@@ -58,7 +59,7 @@ public class Tablet extends JPanel {
 	}
 	
 	public JScrollPane addTextArea(){
-		text = new JTextArea(3,146);
+		text = new JTextArea(4,146);
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
 		//text.setEnabled(false);
@@ -70,7 +71,19 @@ public class Tablet extends JPanel {
 	}
 	
 	public void getCenterPanel() {
-		centerPanel = new EnginePiece(getSize(), text);
+		// Ficha base
+		//centerPanel = new EnginePiece(getSize(), text, imagePointNameBase, 1);
+		
+		// Ficha escalada - pequenia
+		 centerPanel = new EnginePiece(getSize(), this, imagePointNameScale, scale);
+	}
+	
+	public void setText(String text, boolean clear) {
+		if(clear) {
+			this.text.setText(text);
+		} else {
+			this.text.setText(this.text.getText() + "\n" + text);
+		}
 	}
 	
 	/******************************************************************************/

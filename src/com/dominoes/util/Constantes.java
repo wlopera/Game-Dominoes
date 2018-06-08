@@ -1,13 +1,18 @@
 /******************************************************************************/
 /*  interface:   Constantes                                        			  */
 /*  Funcion: Interfaz para control de valores constantes         			  */
-/*  Fecha: 	  Agosto          Realizado por: William Lopera          		  */
+/*  Fecha: 	  Junio          Realizado por: William Lopera          		  */
 /******************************************************************************/
 package com.dominoes.util;
 
 public interface Constantes {
-	// Carpeta por defecto
-	String DEFAULT_DIRECTORY		= "C://temp//XMLExcel";
+	
+	// Imagenes	
+	String imageBaseName = "image/base.png";
+	String imagePointNameBase = "image/pointBase.png";
+	String imagePointNameScale = "image/pointScale.png";
+	
+	double scale = 0.50;
 		
     // Control de Mouse
     int MOUSE_CLICK    				= 1;

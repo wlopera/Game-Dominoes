@@ -12,8 +12,16 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import com.dominoes.domain.ImagePiece;
-
+	
 public class EnginePieceUtil  {
+	
+	private ImageIcon imagenBase;
+	private ImageIcon imagenPoint;
+	
+	public EnginePieceUtil(String imageBaseName, String imagePointName) {
+		imagenBase = new ImageIcon(imageBaseName);
+		imagenPoint = new ImageIcon(imagePointName);
+	}
 
 	/******************************************************************************/
 	/*  Metodo:  getBasePiece                                                     */
@@ -22,7 +30,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	public ImagePiece getBasePiece() {		
-		ImageIcon imagenBase = new ImageIcon("image/base.png");		
 		return new ImagePiece(imagenBase.getImage(), 0, 0, imagenBase.getIconWidth(), imagenBase.getIconHeight(), null);
 	}
 
@@ -121,7 +128,6 @@ public class EnginePieceUtil  {
 	/******************************************************************************/
 	public List<ImagePiece> setPointBottom(List<ImagePiece> points) {
 		List<ImagePiece> newPoints = points;
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
 		for (ImagePiece point : newPoints) {
 			point.setY(point.getY() + 4*imagenBase.getIconHeight()/8-10);
 		}
@@ -134,10 +140,7 @@ public class EnginePieceUtil  {
 	/*																			  */
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
-	private ImagePiece getPoint_1_3_5() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
+	private ImagePiece getPoint_1_3_5() {		
 		return new ImagePiece(	
 				imagenPoint.getImage(),
 				imagenBase.getIconWidth()/2-imagenPoint.getIconWidth()/2-6,
@@ -154,9 +157,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_2_3_4_5_6_First() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,
@@ -173,9 +173,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_2_3_4_5_6_Second() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,
@@ -192,9 +189,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_4_5_6_First() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,
@@ -211,9 +205,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_4_5_6_Second() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,
@@ -231,9 +222,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_6_First() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				imagenBase.getIconWidth()/4-3*imagenPoint.getIconWidth()/4,
@@ -250,9 +238,6 @@ public class EnginePieceUtil  {
 	/*  Fecha: 	 Junio 2018          Realizado por: William Lopera          	  */
 	/******************************************************************************/
 	private ImagePiece getPoint_6_Second() {
-		ImageIcon imagenBase = new ImageIcon("image/base.png");
-		ImageIcon imagenPoint = new ImageIcon("image/point.png");
-		
 		return new ImagePiece(
 				imagenPoint.getImage(),
 				3*imagenBase.getIconWidth()/4+2-3*imagenPoint.getIconWidth()/4,
