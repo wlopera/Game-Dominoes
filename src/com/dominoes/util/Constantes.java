@@ -13,10 +13,16 @@ public interface Constantes {
 	String imagePointNameScale = "image/pointScale.png";
 	
 	double scale = 0.50;
+	
+	int FENCE_UP = 1;
+	int FENCE_BOTTOM = 2;
+	int FENCE_LEFT = 3;
+	int FENCE_RIGHT = 4;
 		
     // Control de Mouse
     int MOUSE_CLICK    				= 1;
-    int MOUSE_MOVED    				= 2;
+    int MOUSE_RESET    				= 2;
+    int MOUSE_MOVED    				= 3;
     
     // Tipos de elementos graficos
     int ELEMENTO_COMPLEX 				= 1;

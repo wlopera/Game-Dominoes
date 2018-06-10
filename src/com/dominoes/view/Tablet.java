@@ -12,14 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.dominoes.element.ComplexElement;
-import com.dominoes.motor.EnginePiece;
+import com.dominoes.engine.EnginePiece;
 import com.dominoes.util.Constantes;
 
 @SuppressWarnings("serial")
 public class Tablet extends JPanel implements Constantes {
 	private JPanel northPanel;
 	private JPanel westPanel;
-	private JPanel centerPanel;
+	private EnginePiece centerPanel;
 	private JPanel eastPanel;	
 	private JPanel southPanel;
 	private JTextArea text;
@@ -71,12 +71,12 @@ public class Tablet extends JPanel implements Constantes {
 	}
 	
 	public void getCenterPanel() {
-		// Ficha base
-		//centerPanel = new EnginePiece(getSize(), text, imagePointNameBase, 1);
-		
-		// Ficha escalada - pequenia
-		 centerPanel = new EnginePiece(getSize(), this, imagePointNameScale, scale);
+		centerPanel = new EnginePiece(getSize(), this, imagePointNameScale, scale);
 	}
+	
+	public void showPieceModal(boolean visible){
+		centerPanel.getModalPanel().setVisible(true);
+	}	
 	
 	public void setText(String text, boolean clear) {
 		if(clear) {

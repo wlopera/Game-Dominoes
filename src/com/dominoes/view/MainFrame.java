@@ -15,6 +15,7 @@ import com.dominoes.component.PanelImagen;
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	private Menu menuBar;
+	private Tablet dominoesTiles;
 
 	/**
 	 * @param args
@@ -72,12 +73,14 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void tablet(){
-		// Instanciar el objeto MlToExcel
-		Tablet dominoesTiles = new Tablet();
-				
-		dominoesTiles.init();
-		// getContentPane().removeAll();
-		setContentPane(dominoesTiles);
+		// Instanciar mesa
+		if (null == dominoesTiles) {
+			dominoesTiles = new Tablet();
+					
+			dominoesTiles.init();
+			setContentPane(dominoesTiles);
+		}
+		dominoesTiles.showPieceModal(true);
 	    pack();
 	}
 	

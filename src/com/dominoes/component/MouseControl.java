@@ -3,7 +3,7 @@ package com.dominoes.component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.dominoes.motor.EnginePiece;
+import com.dominoes.engine.EnginePiece;
 import com.dominoes.util.Constantes;
 
 public class MouseControl extends MouseAdapter implements Constantes
@@ -19,6 +19,10 @@ public class MouseControl extends MouseAdapter implements Constantes
     }
 	 
 	public void mousePressed(MouseEvent e) {
-		piece.clickMouse(e, MOUSE_CLICK);
+		if(1 == e.getButton()) {
+			piece.clickMouse(e, MOUSE_CLICK);
+		} else if(3 == e.getButton()) {
+			piece.clickMouse(e, MOUSE_RESET);
+		}
     }
 }
