@@ -23,6 +23,7 @@ public class Piece implements Serializable{
 	private String valueXY;						// Valor de la ficha (ej: 66:doble seis)
 	private int valueX;							// Valor de un lado de la ficha (ej: 6)
 	private int valueY;							// Valor del otro lado de la ficha (ej: 6)
+	private double angle;                       // Angulo de inclinacion d ela ficha
 	
 	public ImagePiece getBasePiece() {
 		return basePiece;
@@ -96,11 +97,19 @@ public class Piece implements Serializable{
 		this.valueY = valueY;
 	}
 
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
 	@Override
 	public String toString() {
 		return "Piece [basePiece=" + basePiece + ", imagesPointTop=" + imagesPointTop + ", imagesPointBotton="
 				+ imagesPointBotton + ", startPoint=" + startPoint + ", endPoint=" + endPoint + ", vertical=" + vertical
-				+ ", valueXY=" + valueXY + ", valueX=" + valueX + ", valueY=" + valueY + "]";
+				+ ", valueXY=" + valueXY + ", valueX=" + valueX + ", valueY=" + valueY + ", angle=" + angle + "]";
 	}
 
 }

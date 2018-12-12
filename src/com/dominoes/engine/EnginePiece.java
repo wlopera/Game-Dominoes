@@ -18,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import com.dominoes.component.MouseControl;
 import com.dominoes.domain.ImagePiece;
@@ -34,51 +35,50 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 	private List<Piece> pieces;
 	private Piece pieceTemp;
 	private boolean firstPoint;
-	
+
 	private double scale;
 
 	private EnginePieceUtil pieceUtil;
-	
-	
+
 	public EnginePiece(Dimension dimension, Tablet tablet, String imagePointName, double scale) {
 		this.setSize(dimension);
 		this.tablet = tablet;
 		this.scale = scale;
-		
+
 		getMouseController();
 		pieceUtil = new EnginePieceUtil(imageBaseName, imagePointName);
-		
+
 		modalPanel = createModalPanel();
 		modalPanel.setVisible(true);
 		modalPanel.setLocationRelativeTo(null);
-		
+
 		modalPanel.setModal(true);
 		pieces = new ArrayList<Piece>();
 	}
 
 	/******************************************************************************/
-	/* Metodo: setPiece                                                  		  */
-	/* Funcion: Generador de los puntos y base d ela ficha          			  */
+	/* Metodo: setPiece */
+	/* Funcion: Generador de los puntos y base de la ficha */
 	/*                                                                            */
-	/* Fecha: Junio 2018            Realizado por: William Lopera                 */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
-	public void setPiece(int top, int bottom, boolean vertical) {
-		
+	public void setPiece(int top, int bottom, boolean vertical, double angle) {
+
 		pieceTemp = new Piece();
 
 		pieceTemp.setVertical(vertical);
-		
+
 		pieceTemp.setValueX(top);
 		pieceTemp.setValueY(bottom);
 		pieceTemp.setValueXY("" + top + bottom);
-		
+
+		pieceTemp.setAngle(angle-90);
+
 		pieceTemp.setBasePiece(pieceUtil.getBasePiece());
-		
-		pieceTemp.setStartPoint(
-			new Point(
-				(int)(pieceTemp.getBasePiece().getWidth()*(scale/2)),
-				(int)(pieceTemp.getBasePiece().getHeight()*(scale/2))));		
-		
+
+		pieceTemp.setStartPoint(new Point((int) (pieceTemp.getBasePiece().getWidth() * (scale / 2)),
+				(int) (pieceTemp.getBasePiece().getHeight() * (scale / 2))));
+
 		switch (top) {
 		case 1:
 			pieceTemp.setImagesPointTop(pieceUtil.getPointOne());
@@ -126,20 +126,20 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		default:
 			break;
 		}
-		
+
 		firstPoint = true;
 		repaint();
 	}
-	
+
 	/******************************************************************************/
-	/* Metodo: paintComponent                    								  */
-	/* Funcion: Pintar elementos fence y fichas sobre la mesa			          */
+	/* Metodo: paintComponent */
+	/* Funcion: Pintar elementos fence y fichas sobre la mesa */
 	/*                                                                            */
-	/* Fecha: Junio 2018            Realizado por: William Lopera                 */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
 	@Override
 	public void paintComponent(Graphics g) {
-				
+
 		super.paintComponent(g);
 		this.setBackground(new Color(0, 100, 0));
 
@@ -152,7 +152,7 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 				paintPiece(g, piece);
 			}
 		}
-		
+
 		if (null != pieceTemp) {
 			paintPiece(g, pieceTemp);
 		}
@@ -163,10 +163,10 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 	}
 
 	/******************************************************************************/
-	/* Metodo: paintPiece														  */
-	/* Funcion: Pintar la ficha sobre la mesa  									  */
+	/* Metodo: paintPiece */
+	/* Funcion: Pintar la ficha sobre la mesa */
 	/*                                                                            */
-	/* Fecha: Junio 2018 Realizado por: William Lopera 							  */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
 	private void paintPiece(Graphics g, Piece piece) {
 		Graphics2D g2D = (Graphics2D) g;
@@ -178,10 +178,10 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 
 		g2D.setTransform(at);
 
-		if (!piece.getVertical()) {
-			g2D.rotate(Math.toRadians(90), piece.getBasePiece().getWidth() * (scale / 1),
-					piece.getBasePiece().getHeight() * (scale / 1));
-		}
+		// if (!piece.getVertical()) {
+		g2D.rotate(Math.toRadians(piece.getAngle()), piece.getBasePiece().getWidth() * (scale / 1),
+				piece.getBasePiece().getHeight() * (scale / 1));
+		// }
 
 		tablet.setText("Pto start: " + piece.getStartPoint().toString(), false);
 
@@ -199,12 +199,12 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 			}
 		}
 	}
-	
+
 	/******************************************************************************/
-	/* Metodo: getMouseController                            					  */
-	/* Funcion: Control de eventos del mouse sobre la vista 					  */
+	/* Metodo: getMouseController */
+	/* Funcion: Control de eventos del mouse sobre la vista */
 	/*                                                                            */
-	/* Fecha: Junio 2018            Realizado por: William Lopera                 */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
 	private void getMouseController() {
 		// Asociar el manejo del mouse al scroll
@@ -214,11 +214,11 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 	}
 
 	/******************************************************************************/
-	/* Metodo: clickMouse 														  */
-	/* Funcion: Control de eventos del mouse sobre la vista 					  */
-	/* MouseEvent: e: Eventos del mouse											  */
-	/* tipoEvento: Tipo de evento (CLICK-PRESS_MOVED...)                          */
-	/* Fecha: Junio 2018            Realizado por: William Lopera                 */
+	/* Metodo: clickMouse */
+	/* Funcion: Control de eventos del mouse sobre la vista */
+	/* MouseEvent: e: Eventos del mouse */
+	/* tipoEvento: Tipo de evento (CLICK-PRESS_MOVED...) */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
 	public void clickMouse(MouseEvent e, int tipoEvento) {
 		Point pto = e.getPoint();
@@ -250,22 +250,23 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		}
 
 	}
-	
+
 	/******************************************************************************/
-	/* Metodo: createModalPanel                    								  */
-	/* Funcion: Ventana modal para asignar valores a la ficha a crear			  */
+	/* Metodo: createModalPanel */
+	/* Funcion: Ventana modal para asignar valores a la ficha a crear */
 	/*                                                                            */
-	/* Fecha: Junio 2018            Realizado por: William Lopera                 */
+	/* Fecha: Junio 2018 Realizado por: William Lopera */
 	/******************************************************************************/
 	public JDialog createModalPanel() {
-		final JDialog panel = new JDialog();		
+		final JDialog panel = new JDialog();
 
 		JLabel lblFirstTop = new JLabel("Valor Superior");
 		JLabel lblFirstBottom = new JLabel("Valor Inferior");
 		JLabel lblVertical = new JLabel("Posicion Vertical ?");
-		
+		JLabel lblAngle = new JLabel("Angulo");
+
 		final JComboBox<Integer> cmbTop = new JComboBox<Integer>();
-		 
+
 		cmbTop.addItem(0);
 		cmbTop.addItem(1);
 		cmbTop.addItem(2);
@@ -273,29 +274,38 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		cmbTop.addItem(4);
 		cmbTop.addItem(5);
 		cmbTop.addItem(6);
-		
+
 		final JComboBox<Integer> cmbBottom = new JComboBox<Integer>();
-		 
+
 		cmbBottom.addItem(0);
 		cmbBottom.addItem(1);
 		cmbBottom.addItem(2);
 		cmbBottom.addItem(3);
 		cmbBottom.addItem(4);
 		cmbBottom.addItem(5);
-		cmbBottom.addItem(6);				
-		
+		cmbBottom.addItem(6);
+
 		final JCheckBox checkVertical = new JCheckBox("");
-		
+
+		final JComboBox<Integer> cmbAngle = new JComboBox<Integer>();
+
+		cmbAngle.addItem(0);
+		cmbAngle.addItem(90);
+		cmbAngle.addItem(180);
+		cmbAngle.addItem(270);
+
 		JButton btnCancel = new JButton("Cancelar");
 		JButton btnOK = new JButton("Ok");
-		
-		panel.setLayout(new GridLayout(4, 2));
+
+		panel.setLayout(new GridLayout(5, 2));
 		panel.add(lblFirstTop);
 		panel.add(lblFirstBottom);
 		panel.add(cmbTop);
 		panel.add(cmbBottom);
 		panel.add(lblVertical);
 		panel.add(checkVertical);
+		panel.add(lblAngle);
+		panel.add(cmbAngle);
 		panel.add(btnCancel);
 		panel.add(btnOK);
 
@@ -313,9 +323,11 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		btnOK.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setPiece(cmbTop.getSelectedIndex(),cmbBottom.getSelectedIndex(), checkVertical.isSelected());
+				setPiece(cmbTop.getSelectedIndex(), cmbBottom.getSelectedIndex(), checkVertical.isSelected(),
+						Double.parseDouble(cmbAngle.getSelectedItem().toString()));
 				cmbTop.setSelectedIndex(0);
 				cmbBottom.setSelectedIndex(0);
+				cmbAngle.setSelectedIndex(0);
 				checkVertical.setSelected(false);
 				modalPanel.setVisible(false);
 			}
@@ -323,7 +335,7 @@ public class EnginePiece extends javax.swing.JPanel implements Constantes {
 		return panel;
 
 	}
-	
+
 	public JDialog getModalPanel() {
 		return modalPanel;
 	}
